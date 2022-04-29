@@ -3,10 +3,10 @@
 class PluginTest extends TestCase
 {
     public function test_plugin_installed() {
-        activate_plugin( 'disciple-tools-plugin-starter-template/disciple-tools-plugin-starter-template.php' );
+        activate_plugin( 'disciple-tools-pii-obfuscator/disciple-tools-pii-obfuscator.php' );
 
         $this->assertContains(
-            'disciple-tools-plugin-starter-template/disciple-tools-plugin-starter-template.php',
+            'disciple-tools-pii-obfuscator/disciple-tools-pii-obfuscator.php',
             get_option( 'active_plugins' )
         );
     }

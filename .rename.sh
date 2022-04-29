@@ -1,7 +1,7 @@
-find ./ -type f -exec sed -i -e 's|Disciple_Tools_Plugin_Starter_Template|Disciple_Tools_Plugin_Starter_Template|g' {} \;
-find ./ -type f -exec sed -i -e 's|disciple_tools_plugin_starter_template|disciple_tools_plugin_starter_template|g' {} \;
-find ./ -type f -exec sed -i -e 's|disciple-tools-plugin-starter-template|disciple-tools-plugin-starter-template|g' {} \;
-find ./ -type f -exec sed -i -e 's|starter_post_type|starter_post_type|g' {} \;
-find ./ -type f -exec sed -i -e 's|Plugin Starter Template|Plugin Starter Template|g' {} \;
-mv disciple-tools-plugin-starter-template.php disciple-tools-plugin-starter-template.php
+find ./ -type f -exec sed -i -e 's|Disciple_Tools_PII_Obfuscator|Disciple_Tools_PII_Obfuscator|g' {} \;
+find ./ -type f -exec sed -i -e 's|disciple_tools_pii_obfuscator|disciple_tools_pii_obfuscator|g' {} \;
+find ./ -type f -exec sed -i -e 's|disciple-tools-pii-obfuscator|disciple-tools-pii-obfuscator|g' {} \;
+find ./ -type f -exec sed -i -e 's|pii_obfuscator|pii_obfuscator|g' {} \;
+find ./ -type f -exec sed -i -e 's|PII Obfuscator|PII Obfuscator|g' {} \;
+mv disciple-tools-pii-obfuscator.php disciple-tools-pii-obfuscator.php
 rm .rename.sh
