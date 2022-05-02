@@ -153,12 +153,33 @@ class Disciple_Tools_PII_Obfuscator {
             add_filter( 'plugin_row_meta', [ $this, 'plugin_description_links' ], 10, 4 );
         }
 
+        add_filter( 'dt_list_posts_custom_fields', [ $this, 'redact_names' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ], 99 );
+
         /**
          * @todo Decide if you want to create default workflows
          * To remove: delete the line below and remove the folder named /workflows
          */
         require_once( 'workflows/workflows.php' );
+    }
 
+    public function scripts() {
+        wp_enqueue_script(
+            'obfuscate',
+            trailingslashit( plugin_dir_url( __FILE__ ) ) . 'assets/obfuscate.js', [
+                'jquery',
+                'lodash',
+            ],
+            filemtime( plugin_dir_path( __FILE__ ) . 'assets/obfuscate.js' ),
+            true
+        );
+    }
+
+    public function redact_names( $data ) {
+        foreach ($data['posts'] as $list_posts_key => $list_posts_value ) {
+            $data['posts'][$list_posts_key]['post_title'] = '{{REDACTED}}';
+        }
+        return $data;
     }
 
     /**
@@ -264,7 +285,6 @@ class Disciple_Tools_PII_Obfuscator {
 // Register activation hook.
 register_activation_hook( __FILE__, [ 'Disciple_Tools_PII_Obfuscator', 'activation' ] );
 register_deactivation_hook( __FILE__, [ 'Disciple_Tools_PII_Obfuscator', 'deactivation' ] );
-
 
 if ( ! function_exists( 'disciple_tools_pii_obfuscator_hook_admin_notice' ) ) {
     function disciple_tools_pii_obfuscator_hook_admin_notice() {
