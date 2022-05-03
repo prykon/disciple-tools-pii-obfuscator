@@ -176,8 +176,47 @@ class Disciple_Tools_PII_Obfuscator {
     }
 
     public function redact_names( $data ) {
-        foreach ($data['posts'] as $list_posts_key => $list_posts_value ) {
-            $data['posts'][$list_posts_key]['post_title'] = '{{REDACTED}}';
+        $sensitive_fields = [
+            'contact_address',
+            'contact_email',
+            'baptized_by',
+            'baptized',
+            'coached_by',
+            'coaching',
+            'group_coach',
+            'groups',
+            'subassigned',
+            'gender',
+            'age',
+        ];
+
+        foreach ( $data['posts'] as &$fields ) {
+            foreach ( $fields as $field_key => &$field_value ) {
+                if ( !in_array( $field_key, $sensitive_fields ) ) {
+                    continue;
+                }
+                if ( is_array( $field_value ) ) {
+                    foreach ( $field_value as &$val ) {
+                        if ( isset( $val['value'] ) ) {
+                            $val['value'] = 'REDACTED';
+                        }
+
+                        if ( isset( $val['label'] ) ) {
+                            $val['label'] = 'REDACTED';
+                        }
+
+                        if ( isset( $val['post_title'] ) ) {
+                            $val['post_title'] = 'REDACTED';
+                        }
+                    }
+                    if ( isset( $field_value['display'] ) ) {
+                        $field_value['display'] = 'REDACTED';
+                    }
+                }
+            }
+            $fields['title'] = 'REDACTED';
+            $fields['name'] = 'REDACTED';
+            $fields['post_title'] = 'REDACTED';
         }
         return $data;
     }
