@@ -240,7 +240,6 @@ class Disciple_Tools_PII_Obfuscator {
                 $fields['nickname'] = 'REDACTED';
             }
         }
-        dt_write_log( $data['posts'][0]);
         return $data;
     }
 
