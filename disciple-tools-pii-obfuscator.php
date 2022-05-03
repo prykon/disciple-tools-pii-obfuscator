@@ -188,6 +188,7 @@ class Disciple_Tools_PII_Obfuscator {
             'baptized',
             'coached_by',
             'coaching',
+            'coaches',
             'group_coach',
             'group_leader',
             'groups',
@@ -200,6 +201,11 @@ class Disciple_Tools_PII_Obfuscator {
             'location_grid',
             'subassigned',
             'subassigned_on',
+            'leaders',
+            'members',
+            'parent_groups',
+            'peer_groups',
+            'child_groups',
         ];
 
         foreach ( $data['posts'] as &$fields ) {
@@ -234,6 +240,7 @@ class Disciple_Tools_PII_Obfuscator {
                 $fields['nickname'] = 'REDACTED';
             }
         }
+        dt_write_log( $data['posts'][0]);
         return $data;
     }
 
